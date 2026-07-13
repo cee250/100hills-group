@@ -18,12 +18,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
+
+    <style>
+        .typing-text {
+            display: inline;
+        }
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2rem;
+            background: var(--gold);
+            margin-left: 2px;
+            animation: blink 0.8s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .page-hero-content p {
+            min-height: 40px;
+        }
+    </style>
 </head>
 <body>
 
     <div id="preloader">
         <div class="preloader-logo">
-            <img src="1000hills-logo.png" alt="" />
+            <img src="1000hills-logo.png" alt="1000 Hills Group" />
         </div>
         <div class="preloader-bar"><div class="fill"></div></div>
     </div>
@@ -53,7 +75,9 @@
             <div class="page-hero-content" data-aos="fade-up">
                 <span class="tag"><i class="fas fa-users"></i> About Us</span>
                 <h1>Who We <span class="highlight">Are</span></h1>
-                <p>We are a team of passionate Tech professionals dedicated to solving your digital challenges.</p>
+                <p>
+                    <span class="typing-text" id="aboutTyping"></span><span class="typing-cursor"></span>
+                </p>
             </div>
         </div>
     </section>
@@ -156,6 +180,7 @@
                         <li><a href="services.html#social-media">Social Media</a></li>
                         <li><a href="services.html#seo">SEO</a></li>
                         <li><a href="services.html#mobile-apps">Mobile Apps</a></li>
+                        <li><a href="services.html#ai-automation">AI Automation</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
@@ -173,6 +198,24 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const text = 'We are a team of passionate Tech professionals dedicated to solving your digital challenges.';
+            const typingElement = document.getElementById('aboutTyping');
+            let charIndex = 0;
+            
+            function typeAboutText() {
+                if (charIndex < text.length) {
+                    typingElement.textContent += text.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeAboutText, 30);
+                }
+            }
+            
+            setTimeout(typeAboutText, 500);
+        });
+    </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
