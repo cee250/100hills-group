@@ -386,9 +386,6 @@
     </footer>
 
     <script>
-        // ======================================== //
-        // TYPING EFFECT                           //
-        // ======================================== //
         document.addEventListener('DOMContentLoaded', function() {
             const text = 'Have a question or project in mind? We\'d love to hear from you.';
             const typingElement = document.getElementById('contactTyping');
@@ -405,9 +402,6 @@
             setTimeout(typeContactText, 500);
         });
 
-        // ======================================== //
-        // CONTACT FORM SUBMIT                     //
-        // ======================================== //
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -426,14 +420,7 @@
     </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 50,
-            easing: 'ease-out-cubic'
-        });
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
