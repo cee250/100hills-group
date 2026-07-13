@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Our Services | 1000 Hills Group</title>
-    <meta name="description" content="Web design, social media marketing, SEO, content marketing, mobile app development, email marketing and digital marketing training from 1000 Hills Group in Kigali, Rwanda." />
+    <meta name="description" content="Web design, social media marketing, SEO, content marketing, mobile app development, email marketing, AI automation and digital marketing training from 1000 Hills Group in Kigali, Rwanda." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://1000hillsgroup.africa/services.html" />
     <meta property="og:title" content="Our Services | 1000 Hills Group" />
-    <meta property="og:description" content="End-to-end Tech solutions: web design, social media, SEO, mobile apps and more." />
+    <meta property="og:description" content="End-to-end Tech solutions: web design, social media, SEO, mobile apps, AI automation and more." />
     <meta property="og:image" content="https://1000hillsgroup.africa/1000hills-logo.png" />
     <link rel="icon" type="image/png" href="1000hills-logo.png" />
 
@@ -18,12 +18,151 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
+
+    <style>
+        .typing-text {
+            display: inline;
+        }
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2rem;
+            background: var(--gold);
+            margin-left: 2px;
+            animation: blink 0.8s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .page-hero-content p {
+            min-height: 40px;
+        }
+
+        .service-expanded {
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #BBBBBB;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        .service-expanded.show { display: block; }
+        .service-expanded ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 8px;
+        }
+        .service-expanded ul li {
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .service-expanded ul li i {
+            color: var(--gold);
+            font-size: 0.75rem;
+        }
+        .service-full-card .read-more-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #CCCCCC;
+            padding: 6px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: var(--font);
+            font-size: 0.8rem;
+            transition: var(--transition);
+            margin-top: 8px;
+        }
+        .service-full-card .read-more-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .service-full-card .read-more-btn.active {
+            background: var(--gradient-gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+        .service-full-card {
+            background: var(--dark-card);
+            border-radius: var(--radius);
+            padding: 28px 32px;
+            border: 2px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            transition: var(--transition);
+            position: relative;
+        }
+        .service-full-card:hover {
+            border-color: rgba(201, 169, 110, 0.15);
+            transform: translateX(6px);
+        }
+        .service-full-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(201, 169, 110, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+        .service-full-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--white);
+        }
+        .service-full-content .service-short {
+            color: #BBBBBB;
+            font-size: 1rem;
+        }
+        .service-full-content p {
+            color: #BBBBBB;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .service-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .service-features span {
+            font-size: 0.8rem;
+            background: rgba(201, 169, 110, 0.06);
+            border: 1px solid rgba(201, 169, 110, 0.06);
+            padding: 3px 12px;
+            border-radius: 50px;
+            color: #CCCCCC;
+        }
+        .service-features span i {
+            color: var(--gold);
+            margin-right: 4px;
+        }
+        @media (max-width: 768px) {
+            .service-full-card {
+                flex-direction: column;
+                padding: 20px;
+            }
+            .service-full-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
     <div id="preloader">
         <div class="preloader-logo">
-            <img src="1000hills-logo.png" alt="" />
+            <img src="1000hills-logo.png" alt="1000 Hills Group" />
         </div>
         <div class="preloader-bar"><div class="fill"></div></div>
     </div>
@@ -53,7 +192,9 @@
             <div class="page-hero-content" data-aos="fade-up">
                 <span class="tag">What We Do</span>
                 <h1>Our <span class="highlight">Services</span></h1>
-                <p>End-to-end Tech solutions designed to elevate your business</p>
+                <p>
+                    <span class="typing-text" id="servicesTyping"></span><span class="typing-cursor"></span>
+                </p>
             </div>
         </div>
     </section>
@@ -111,6 +252,7 @@
                         <li><a href="services.html#social-media">Social Media</a></li>
                         <li><a href="services.html#seo">SEO</a></li>
                         <li><a href="services.html#mobile-apps">Mobile Apps</a></li>
+                        <li><a href="services.html#ai-automation">AI Automation</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
@@ -132,6 +274,8 @@
     <script>
         function toggleReadMore(serviceId, btn) {
             const expanded = document.getElementById('exp-' + serviceId);
+            if (!expanded) return;
+            
             const isOpen = expanded.classList.toggle('show');
             btn.classList.toggle('active', isOpen);
             btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
@@ -139,6 +283,22 @@
                 ? 'Read Less <i class="fas fa-chevron-up"></i>'
                 : 'Read More <i class="fas fa-chevron-down"></i>';
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const text = 'End-to-end Tech solutions designed to elevate your business';
+            const typingElement = document.getElementById('servicesTyping');
+            let charIndex = 0;
+            
+            function typeServicesText() {
+                if (charIndex < text.length) {
+                    typingElement.textContent += text.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeServicesText, 25);
+                }
+            }
+            
+            setTimeout(typeServicesText, 500);
+        });
     </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
