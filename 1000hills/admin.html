@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Editor - 1000 Hills Group</title>
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="1000hills-logo.png" />
+
+    <style>
+        body { padding-top: 0; }
+
+        /* ---------- GATE SCREEN ---------- */
+        .gate-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .gate-card {
+            width: 100%;
+            max-width: 400px;
+            background: var(--dark-card);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            border: 1px solid rgba(255,255,255,0.04);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+        .gate-card img { height: 46px; margin: 0 auto 16px; }
+        .gate-card h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
+        .gate-card p.sub { color: #888; font-size: 0.85rem; margin-bottom: 22px; }
+        .gate-card input {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: var(--font);
+            font-size: 0.95rem;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        .gate-card input:focus { outline: none; border-color: var(--gold); }
+        .gate-error {
+            color: #ff6b6b;
+            font-size: 0.82rem;
+            margin-top: 10px;
+            display: none;
+        }
+        .gate-error.show { display: block; }
+        .gate-note {
+            margin-top: 20px;
+            font-size: 0.72rem;
+            color: #666;
+            line-height: 1.6;
+            text-align: left;
+            background: rgba(255, 152, 0, 0.06);
+            border: 1px solid rgba(255, 152, 0, 0.12);
+            padding: 10px 12px;
+            border-radius: 8px;
+        }
+        .gate-note i { color: #FF9800; margin-right: 4px; }
+
+        /* ---------- ADMIN SHELL ---------- */
+        #adminShell { display: none; }
+        .admin-topbar {
+            position: sticky;
+            top: 0;
+            z-index: 500;
+            background: rgba(0,0,0,0.97);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(201,169,110,0.1);
+            padding: 14px 20px;
+        }
+        .admin-topbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .admin-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+        .admin-brand img { height: 30px; }
+        .admin-topbar-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+        .btn-sm {
+            padding: 7px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: #CCC;
+            font-family: var(--font);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-sm:hover { border-color: var(--gold); color: var(--gold); }
+        .btn-sm.primary { background: var(--gradient-gold); color: var(--black); border: none; }
+        .btn-sm.primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+        .btn-sm.danger { border-color: rgba(255,68,68,0.3); color: #ff6b6b; }
+        .btn-sm.danger:hover { background: rgba(255,68,68,0.1); border-color: #ff4444; }
+
+        .unsaved-pill {
+            font-size: 0.72rem;
+            color: #FF9800;
+            background: rgba(255,152,0,0.1);
+            border: 1px solid rgba(255,152,0,0.2);
+            padding: 4px 12px;
+            border-radius: 50px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+        }
+        .unsaved-pill.show { display: inline-flex; }
+
+        .admin-body { max-width: 1100px; margin: 0 auto; padding: 28px 20px 80px; }
+
+        .publish-banner {
+            background: rgba(201,169,110,0.06);
+            border: 1px solid rgba(201,169,110,0.15);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            font-size: 0.85rem;
+            color: #CCC;
+            line-height: 1.7;
+        }
+        .publish-banner strong { color: var(--gold); }
+        .publish-banner ol { margin: 8px 0 0 18px; }
+
+        .admin-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 12px;
+        }
+        .admin-tabs button {
+            background: transparent;
+            border: none;
+            color: var(--grey);
+            padding: 8px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: var(--font);
+            font-weight: 600;
+            font-size: 0.82rem;
+            transition: var(--transition);
+        }
+        .admin-tabs button.active { background: var(--gold); color: var(--black); }
+        .admin-tabs button:hover:not(.active) { color: var(--white); }
+
+        .admin-panel { display: none; }
+        .admin-panel.active { display: block; }
+
+        .admin-form {
+            background: var(--dark-card);
+            border-radius: var(--radius);
+            padding: 22px;
+            border: 1px solid rgba(255,255,255,0.04);
+            margin-bottom: 22px;
+        }
+        .admin-form h3 { margin-bottom: 4px; font-size: 1.05rem; }
+        .admin-form .form-hint { color: #777; font-size: 0.78rem; margin-bottom: 16px; }
+
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 0.78rem; font-weight: 600; color: #BBB; margin-bottom: 4px; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 9px 12px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: var(--font);
+            font-size: 0.88rem;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none; border-color: var(--gold);
+        }
+        .form-group textarea { resize: vertical; min-height: 64px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+        .form-actions { display: flex; gap: 10px; align-items: center; margin-top: 4px; }
+        .cancel-edit-btn { display: none; }
+        .cancel-edit-btn.show { display: inline-flex; }
+
+        .admin-list {
+            background: var(--dark-card);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255,255,255,0.04);
+            overflow: hidden;
+        }
+        .admin-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .admin-item:last-child { border-bottom: none; }
+        .admin-item-info { display: flex; align-items: center; gap: 12px; min-width: 0; }
+        .admin-item-info img {
+            width: 40px; height: 40px; border-radius: 8px; object-fit: cover;
+            background: rgba(255,255,255,0.04); flex-shrink: 0;
+        }
+        .admin-item-info .text h4 { font-size: 0.92rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 320px; }
+        .admin-item-info .text p { font-size: 0.78rem; color: var(--grey); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 320px; }
+        .admin-item-actions { display: flex; gap: 6px; flex-shrink: 0; }
+        .admin-item-actions button {
+            padding: 5px 12px; border-radius: 6px; border: none; cursor: pointer;
+            font-size: 0.72rem; font-weight: 600; transition: var(--transition);
+        }
+        .ia-edit { background: rgba(201,169,110,0.15); color: var(--gold); }
+        .ia-edit:hover { background: var(--gold); color: var(--black); }
+        .ia-delete { background: rgba(255,68,68,0.1); color: #ff6b6b; }
+        .ia-delete:hover { background: #ff4444; color: #fff; }
+        .admin-empty { padding: 26px; color: #777; text-align: center; font-size: 0.85rem; }
+
+        .toast {
+            position: fixed; bottom: 20px; right: 20px;
+            background: var(--gold); color: var(--black);
+            padding: 12px 22px; border-radius: 8px; font-weight: 600;
+            font-family: var(--font); box-shadow: var(--shadow); z-index: 99999;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row, .form-row-3 { grid-template-columns: 1fr; }
+            .admin-item { flex-direction: column; align-items: flex-start; }
+            .admin-item-actions { width: 100%; }
+            .admin-item-actions button { flex: 1; text-align: center; }
+            .admin-item-info .text h4, .admin-item-info .text p { max-width: 220px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======================================== -->
+    <!-- PASSPHRASE GATE                          -->
+    <!-- ======================================== -->
+    <div class="gate-wrapper" id="gateWrapper">
+        <div class="gate-card">
+            <img src="1000hills-logo.png" alt="1000 Hills Group" />
+            <h2>Content Editor</h2>
+            <p class="sub">Enter the passphrase to continue</p>
+            <input type="password" id="gatePassInput" placeholder="Passphrase" autocomplete="off" />
+            <button class="btn-sm primary" style="width:100%; justify-content:center; padding:10px;" id="gateSubmitBtn">
+                <i class="fas fa-unlock"></i> Unlock
+            </button>
+            <p class="gate-error" id="gateError">Incorrect passphrase.</p>
+            <div class="gate-note">
+                <i class="fas fa-triangle-exclamation"></i>
+                This is a soft lock only — there's no backend, so it can't stop someone with direct access
+                to your site files. Don't store anything sensitive here. Default passphrase is
+                <code>1000hills2026</code> — change it by editing the <code>PASS_HASH</code> constant
+                near the bottom of this file (instructions in the comment above it).
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- ADMIN SHELL                              -->
+    <!-- ======================================== -->
+    <div id="adminShell">
+        <div class="admin-topbar">
+            <div class="container">
+                <a href="index.html" class="admin-brand">
+                    <img src="1000hills-logo.png" alt="" />
+                    <span>Content Editor</span>
+                </a>
+                <div class="admin-topbar-actions">
+                    <span class="unsaved-pill" id="unsavedPill"><i class="fas fa-circle" style="font-size:6px;"></i> Unsaved changes</span>
+                    <button class="btn-sm" id="importBtn"><i class="fas fa-file-import"></i> Import JSON</button>
+                    <input type="file" id="importInput" accept="application/json" style="display:none;" />
+                    <button class="btn-sm" id="resetBtn"><i class="fas fa-rotate-left"></i> Reset</button>
+                    <button class="btn-sm primary" id="downloadBtn"><i class="fas fa-download"></i> Download content.json</button>
+                    <button class="btn-sm danger" id="lockBtn"><i class="fas fa-lock"></i> Lock</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-body">
+            <div class="publish-banner">
+                <strong>How this works:</strong> your site reads its content from <code>content.json</code>.
+                Edit things below, then hit <strong>Download content.json</strong> and upload that file to your
+                host, replacing the old one — that's what actually publishes your changes to visitors.
+                <ol>
+                    <li>Make your edits in the tabs below (they auto-save to this browser as a draft)</li>
+                    <li>Click <strong>Download content.json</strong></li>
+                    <li>Upload the downloaded file to your hosting, overwriting <code>content.json</code> in the site's root folder</li>
+                </ol>
+            </div>
+
+            <div class="admin-tabs">
+                <button class="active" data-tab="team">👥 Team</button>
+                <button data-tab="services">💼 Services</button>
+                <button data-tab="clients">🤝 Clients</button>
+                <button data-tab="portfolio">📁 Portfolio</button>
+                <button data-tab="testimonials">⭐ Testimonials</button>
+            </div>
+
+            <!-- TEAM -->
+            <div class="admin-panel active" id="panel-team">
+                <div class="admin-form">
+                    <h3 id="teamFormTitle">➕ Add Team Member</h3>
+                    <p class="form-hint">Image field expects a filename already uploaded to your site folder (e.g. <code>Gakire.jpeg</code>).</p>
+                    <div class="form-row">
+                        <div class="form-group"><label>Full Name</label><input type="text" id="teamName" placeholder="e.g., John Doe" /></div>
+                        <div class="form-group"><label>Role / Title</label><input type="text" id="teamRole" placeholder="e.g., Lead Web Developer" /></div>
+                    </div>
+                    <div class="form-group"><label>Bio</label><textarea id="teamBio" placeholder="Short bio..."></textarea></div>
+                    <div class="form-row">
+                        <div class="form-group"><label>Image filename</label><input type="text" id="teamImage" placeholder="photo.jpg" /></div>
+                        <div class="form-group"><label>Badge text (optional)</label><input type="text" id="teamBadge" placeholder="e.g., CEO" /></div>
+                    </div>
+                    <div class="form-group"><label>Skills (comma separated)</label><input type="text" id="teamSkills" placeholder="Web Dev, Cybersecurity, UI/UX" /></div>
+                    <div class="form-actions">
+                        <button class="btn-sm primary" id="teamSubmitBtn"><i class="fas fa-plus"></i> Add Member</button>
+                        <button class="btn-sm cancel-edit-btn" id="teamCancelBtn"><i class="fas fa-xmark"></i> Cancel edit</button>
+                    </div>
+                </div>
+                <div class="admin-list" id="teamList"></div>
+            </div>
+
+            <!-- SERVICES -->
+            <div class="admin-panel" id="panel-services">
+                <div class="admin-form">
+                    <h3 id="serviceFormTitle">➕ Add Service</h3>
+                    <p class="form-hint">Details list = one bullet per line. Anchor is used for the services.html#link — keep it short, lowercase, hyphenated.</p>
+                    <div class="form-row">
+                        <div class="form-group"><label>Title</label><input type="text" id="serviceTitle" placeholder="e.g., Web Designing" /></div>
+                        <div class="form-group"><label>Anchor (URL slug)</label><input type="text" id="serviceAnchor" placeholder="web-design" /></div>
+                    </div>
+                    <div class="form-group"><label>Icon (FontAwesome class)</label><input type="text" id="serviceIcon" placeholder="fas fa-laptop-code" /></div>
+                    <div class="form-group"><label>Short description (shown on homepage)</label><textarea id="serviceShortDesc" placeholder="One sentence summary..."></textarea></div>
+                    <div class="form-group"><label>Full description (shown on Services page)</label><textarea id="serviceParagraph" placeholder="Longer explanation..."></textarea></div>
+                    <div class="form-group"><label>Bullet points (one per line)</label><textarea id="serviceList" placeholder="Responsive Design - Looks perfect on all devices&#10;SEO Optimized - Rank higher..." style="min-height:100px;"></textarea></div>
+                    <div class="form-actions">
+                        <button class="btn-sm primary" id="serviceSubmitBtn"><i class="fas fa-plus"></i> Add Service</button>
+                        <button class="btn-sm cancel-edit-btn" id="serviceCancelBtn"><i class="fas fa-xmark"></i> Cancel edit</button>
+                    </div>
+                </div>
+                <div class="admin-list" id="servicesList"></div>
+            </div>
+
+            <!-- CLIENTS -->
+            <div class="admin-panel" id="panel-clients">
+                <div class="admin-form">
+                    <h3 id="clientFormTitle">➕ Add Client Logo</h3>
+                    <div class="form-row">
+                        <div class="form-group"><label>Client Name</label><input type="text" id="clientName" placeholder="e.g., Lemigo" /></div>
+                        <div class="form-group"><label>Logo filename</label><input type="text" id="clientLogo" placeholder="Lemigo.png" /></div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-sm primary" id="clientSubmitBtn"><i class="fas fa-plus"></i> Add Client</button>
+                        <button class="btn-sm cancel-edit-btn" id="clientCancelBtn"><i class="fas fa-xmark"></i> Cancel edit</button>
+                    </div>
+                </div>
+                <div class="admin-list" id="clientsList"></div>
+            </div>
+
+            <!-- PORTFOLIO -->
+            <div class="admin-panel" id="panel-portfolio">
+                <div class="admin-form">
+                    <h3 id="portfolioFormTitle">➕ Add Portfolio Project</h3>
+                    <div class="form-row">
+                        <div class="form-group"><label>Project Name</label><input type="text" id="portfolioName" placeholder="e.g., Luxury Properties Rwanda" /></div>
+                        <div class="form-group"><label>Logo filename</label><input type="text" id="portfolioLogo" placeholder="Luxury.jpeg" /></div>
+                    </div>
+                    <div class="form-group"><label>Description</label><textarea id="portfolioDesc" placeholder="Brief description..."></textarea></div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="portfolioStatus">
+                                <option value="live">Live</option>
+                                <option value="coming">Coming Soon</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>URL (only needed if Live)</label><input type="text" id="portfolioUrl" placeholder="https://example.com" /></div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-sm primary" id="portfolioSubmitBtn"><i class="fas fa-plus"></i> Add Project</button>
+                        <button class="btn-sm cancel-edit-btn" id="portfolioCancelBtn"><i class="fas fa-xmark"></i> Cancel edit</button>
+                    </div>
+                </div>
+                <div class="admin-list" id="portfolioList"></div>
+            </div>
+
+            <!-- TESTIMONIALS -->
+            <div class="admin-panel" id="panel-testimonials">
+                <div class="admin-form">
+                    <h3 id="testimonialFormTitle">➕ Add Testimonial</h3>
+                    <div class="form-row">
+                        <div class="form-group"><label>Client Name</label><input type="text" id="testimonialName" placeholder="e.g., John Rwandan" /></div>
+                        <div class="form-group"><label>Company / Role</label><input type="text" id="testimonialCompany" placeholder="e.g., CEO, Company XYZ" /></div>
+                    </div>
+                    <div class="form-group"><label>Testimonial Text</label><textarea id="testimonialText" placeholder="What they said..."></textarea></div>
+                    <div class="form-actions">
+                        <button class="btn-sm primary" id="testimonialSubmitBtn"><i class="fas fa-plus"></i> Add Testimonial</button>
+                        <button class="btn-sm cancel-edit-btn" id="testimonialCancelBtn"><i class="fas fa-xmark"></i> Cancel edit</button>
+                    </div>
+                </div>
+                <div class="admin-list" id="testimonialsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    /* ==========================================================
+       PASSPHRASE
+       To change the passphrase: open your browser console on this
+       page, run
+           crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourNewPassphrase'))
+             .then(b => console.log(Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2,'0')).join('')))
+       then paste the printed hash below as PASS_HASH.
+       Default passphrase is: 1000hills2026
+       ========================================================== */
+    const PASS_HASH = 'cab342fac9e2418c8db4fc336dc21827f05194f471e40537c1f6b1fb1c2962e6';
+
+    async function sha256(text) {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    const gateWrapper = document.getElementById('gateWrapper');
+    const adminShell = document.getElementById('adminShell');
+    const gatePassInput = document.getElementById('gatePassInput');
+    const gateError = document.getElementById('gateError');
+
+    async function tryUnlock() {
+        const hash = await sha256(gatePassInput.value);
+        if (hash === PASS_HASH) {
+            sessionStorage.setItem('adminUnlocked', '1');
+            gateWrapper.style.display = 'none';
+            adminShell.style.display = 'block';
+            boot();
+        } else {
+            gateError.classList.add('show');
+            gatePassInput.value = '';
+            gatePassInput.focus();
+        }
+    }
+
+    document.getElementById('gateSubmitBtn').addEventListener('click', tryUnlock);
+    gatePassInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
+
+    document.getElementById('lockBtn').addEventListener('click', () => {
+        sessionStorage.removeItem('adminUnlocked');
+        location.reload();
+    });
+
+    if (sessionStorage.getItem('adminUnlocked') === '1') {
+        gateWrapper.style.display = 'none';
+        adminShell.style.display = 'block';
+        boot();
+    }
+
+    /* ==========================================================
+       STATE
+       ========================================================== */
+    let state = null;
+    let editing = { team: null, services: null, clients: null, portfolio: null, testimonials: null };
+    const DRAFT_KEY = '1000hills_content_draft';
+
+    function uid(prefix) {
+        return prefix + '_' + Math.random().toString(36).slice(2, 9);
+    }
+
+    function markUnsaved() {
+        document.getElementById('unsavedPill').classList.add('show');
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(state));
+    }
+
+    function clearUnsaved() {
+        document.getElementById('unsavedPill').classList.remove('show');
+    }
+
+    async function boot() {
+        const draft = localStorage.getItem(DRAFT_KEY);
+        try {
+            const res = await fetch('content.json', { cache: 'no-store' });
+            const serverData = await res.json();
+            if (draft) {
+                const useDraft = confirm('You have unsaved local changes from a previous session. Click OK to keep editing them, or Cancel to discard the draft and reload the current content.json from the server.');
+                state = useDraft ? JSON.parse(draft) : serverData;
+                if (useDraft) markUnsaved(); else localStorage.removeItem(DRAFT_KEY);
+            } else {
+                state = serverData;
+            }
+        } catch (err) {
+            console.error('Could not load content.json', err);
+            state = draft ? JSON.parse(draft) : { team: [], services: [], clients: [], portfolio: [], testimonials: [] };
+        }
+        renderAll();
+    }
+
+    function renderAll() {
+        renderTeamList();
+        renderServicesList();
+        renderClientsList();
+        renderPortfolioList();
+        renderTestimonialsList();
+    }
+
+    function showToast(msg) {
+        const t = document.createElement('div');
+        t.className = 'toast';
+        t.textContent = '✅ ' + msg;
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 2500);
+    }
+
+    /* ==========================================================
+       TABS
+       ========================================================== */
+    document.querySelectorAll('.admin-tabs button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+        });
+    });
+
+    /* ==========================================================
+       TEAM
+       ========================================================== */
+    function renderTeamList() {
+        const list = document.getElementById('teamList');
+        if (!state.team.length) { list.innerHTML = '<p class="admin-empty">No team members yet.</p>'; return; }
+        list.innerHTML = state.team.map(m => `
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <img src="${m.image || ''}" onerror="this.style.visibility='hidden'" alt="" />
+                    <div class="text"><h4>${m.name}</h4><p>${m.role}</p></div>
+                </div>
+                <div class="admin-item-actions">
+                    <button class="ia-edit" onclick="editTeam('${m.id}')"><i class="fas fa-edit"></i> Edit</button>
+                    <button class="ia-delete" onclick="deleteItem('team', '${m.id}')"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function resetTeamForm() {
+        editing.team = null;
+        document.getElementById('teamFormTitle').textContent = '➕ Add Team Member';
+        document.getElementById('teamSubmitBtn').innerHTML = '<i class="fas fa-plus"></i> Add Member';
+        document.getElementById('teamCancelBtn').classList.remove('show');
+        ['teamName','teamRole','teamBio','teamImage','teamBadge','teamSkills'].forEach(id => document.getElementById(id).value = '');
+    }
+
+    window.editTeam = function (id) {
+        const m = state.team.find(x => x.id === id);
+        if (!m) return;
+        editing.team = id;
+        document.getElementById('teamName').value = m.name;
+        document.getElementById('teamRole').value = m.role;
+        document.getElementById('teamBio').value = m.bio || '';
+        document.getElementById('teamImage').value = m.image || '';
+        document.getElementById('teamBadge').value = m.badge || '';
+        document.getElementById('teamSkills').value = (m.skills || []).join(', ');
+        document.getElementById('teamFormTitle').textContent = '✏️ Editing: ' + m.name;
+        document.getElementById('teamSubmitBtn').innerHTML = '<i class="fas fa-save"></i> Update Member';
+        document.getElementById('teamCancelBtn').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    document.getElementById('teamCancelBtn').addEventListener('click', resetTeamForm);
+
+    document.getElementById('teamSubmitBtn').addEventListener('click', () => {
+        const name = document.getElementById('teamName').value.trim();
+        const role = document.getElementById('teamRole').value.trim();
+        if (!name || !role) { alert('Name and Role are required.'); return; }
+        const payload = {
+            name, role,
+            bio: document.getElementById('teamBio').value.trim(),
+            image: document.getElementById('teamImage').value.trim(),
+            badge: document.getElementById('teamBadge').value.trim(),
+            badgeIcon: 'fas fa-star',
+            skills: document.getElementById('teamSkills').value.split(',').map(s => s.trim()).filter(Boolean)
+        };
+        if (editing.team) {
+            const idx = state.team.findIndex(x => x.id === editing.team);
+            state.team[idx] = { ...state.team[idx], ...payload };
+            showToast('Team member updated');
+        } else {
+            state.team.push({ id: uid('t'), ...payload });
+            showToast('Team member added');
+        }
+        resetTeamForm();
+        renderTeamList();
+        markUnsaved();
+    });
+
+    /* ==========================================================
+       SERVICES
+       ========================================================== */
+    function renderServicesList() {
+        const list = document.getElementById('servicesList');
+        if (!state.services.length) { list.innerHTML = '<p class="admin-empty">No services yet.</p>'; return; }
+        list.innerHTML = state.services.map(s => `
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <div class="text"><h4><i class="${s.icon}"></i> ${s.title}</h4><p>${s.shortDesc}</p></div>
+                </div>
+                <div class="admin-item-actions">
+                    <button class="ia-edit" onclick="editService('${s.id}')"><i class="fas fa-edit"></i> Edit</button>
+                    <button class="ia-delete" onclick="deleteItem('services', '${s.id}')"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function resetServiceForm() {
+        editing.services = null;
+        document.getElementById('serviceFormTitle').textContent = '➕ Add Service';
+        document.getElementById('serviceSubmitBtn').innerHTML = '<i class="fas fa-plus"></i> Add Service';
+        document.getElementById('serviceCancelBtn').classList.remove('show');
+        ['serviceTitle','serviceAnchor','serviceIcon','serviceShortDesc','serviceParagraph','serviceList'].forEach(id => document.getElementById(id).value = '');
+    }
+
+    window.editService = function (id) {
+        const s = state.services.find(x => x.id === id);
+        if (!s) return;
+        editing.services = id;
+        document.getElementById('serviceTitle').value = s.title;
+        document.getElementById('serviceAnchor').value = s.anchor;
+        document.getElementById('serviceIcon').value = s.icon;
+        document.getElementById('serviceShortDesc').value = s.shortDesc;
+        document.getElementById('serviceParagraph').value = s.detailsParagraph || '';
+        document.getElementById('serviceList').value = (s.detailsList || []).join('\n');
+        document.getElementById('serviceFormTitle').textContent = '✏️ Editing: ' + s.title;
+        document.getElementById('serviceSubmitBtn').innerHTML = '<i class="fas fa-save"></i> Update Service';
+        document.getElementById('serviceCancelBtn').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    document.getElementById('serviceCancelBtn').addEventListener('click', resetServiceForm);
+
+    document.getElementById('serviceSubmitBtn').addEventListener('click', () => {
+        const title = document.getElementById('serviceTitle').value.trim();
+        const anchor = document.getElementById('serviceAnchor').value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-');
+        if (!title || !anchor) { alert('Title and Anchor are required.'); return; }
+        const payload = {
+            title, anchor,
+            icon: document.getElementById('serviceIcon').value.trim() || 'fas fa-cog',
+            shortDesc: document.getElementById('serviceShortDesc').value.trim(),
+            detailsParagraph: document.getElementById('serviceParagraph').value.trim(),
+            detailsList: document.getElementById('serviceList').value.split('\n').map(s => s.trim()).filter(Boolean)
+        };
+        if (editing.services) {
+            const idx = state.services.findIndex(x => x.id === editing.services);
+            state.services[idx] = { ...state.services[idx], ...payload };
+            showToast('Service updated');
+        } else {
+            state.services.push({ id: uid('s'), ...payload });
+            showToast('Service added');
+        }
+        resetServiceForm();
+        renderServicesList();
+        markUnsaved();
+    });
+
+    /* ==========================================================
+       CLIENTS
+       ========================================================== */
+    function renderClientsList() {
+        const list = document.getElementById('clientsList');
+        if (!state.clients.length) { list.innerHTML = '<p class="admin-empty">No clients yet.</p>'; return; }
+        list.innerHTML = state.clients.map(c => `
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <img src="${c.logo || ''}" onerror="this.style.visibility='hidden'" alt="" />
+                    <div class="text"><h4>${c.name}</h4><p>${c.logo}</p></div>
+                </div>
+                <div class="admin-item-actions">
+                    <button class="ia-edit" onclick="editClient('${c.id}')"><i class="fas fa-edit"></i> Edit</button>
+                    <button class="ia-delete" onclick="deleteItem('clients', '${c.id}')"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function resetClientForm() {
+        editing.clients = null;
+        document.getElementById('clientFormTitle').textContent = '➕ Add Client Logo';
+        document.getElementById('clientSubmitBtn').innerHTML = '<i class="fas fa-plus"></i> Add Client';
+        document.getElementById('clientCancelBtn').classList.remove('show');
+        ['clientName','clientLogo'].forEach(id => document.getElementById(id).value = '');
+    }
+
+    window.editClient = function (id) {
+        const c = state.clients.find(x => x.id === id);
+        if (!c) return;
+        editing.clients = id;
+        document.getElementById('clientName').value = c.name;
+        document.getElementById('clientLogo').value = c.logo;
+        document.getElementById('clientFormTitle').textContent = '✏️ Editing: ' + c.name;
+        document.getElementById('clientSubmitBtn').innerHTML = '<i class="fas fa-save"></i> Update Client';
+        document.getElementById('clientCancelBtn').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    document.getElementById('clientCancelBtn').addEventListener('click', resetClientForm);
+
+    document.getElementById('clientSubmitBtn').addEventListener('click', () => {
+        const name = document.getElementById('clientName').value.trim();
+        const logo = document.getElementById('clientLogo').value.trim();
+        if (!name || !logo) { alert('Client Name and Logo filename are required.'); return; }
+        if (editing.clients) {
+            const idx = state.clients.findIndex(x => x.id === editing.clients);
+            state.clients[idx] = { ...state.clients[idx], name, logo };
+            showToast('Client updated');
+        } else {
+            state.clients.push({ id: uid('c'), name, logo });
+            showToast('Client added');
+        }
+        resetClientForm();
+        renderClientsList();
+        markUnsaved();
+    });
+
+    /* ==========================================================
+       PORTFOLIO
+       ========================================================== */
+    function renderPortfolioList() {
+        const list = document.getElementById('portfolioList');
+        if (!state.portfolio.length) { list.innerHTML = '<p class="admin-empty">No portfolio projects yet.</p>'; return; }
+        list.innerHTML = state.portfolio.map(p => `
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <img src="${p.logo || ''}" onerror="this.style.visibility='hidden'" alt="" />
+                    <div class="text"><h4>${p.name}</h4><p>${p.status === 'live' ? 'Live' : 'Coming Soon'}</p></div>
+                </div>
+                <div class="admin-item-actions">
+                    <button class="ia-edit" onclick="editPortfolio('${p.id}')"><i class="fas fa-edit"></i> Edit</button>
+                    <button class="ia-delete" onclick="deleteItem('portfolio', '${p.id}')"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function resetPortfolioForm() {
+        editing.portfolio = null;
+        document.getElementById('portfolioFormTitle').textContent = '➕ Add Portfolio Project';
+        document.getElementById('portfolioSubmitBtn').innerHTML = '<i class="fas fa-plus"></i> Add Project';
+        document.getElementById('portfolioCancelBtn').classList.remove('show');
+        ['portfolioName','portfolioLogo','portfolioDesc','portfolioUrl'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('portfolioStatus').value = 'live';
+    }
+
+    window.editPortfolio = function (id) {
+        const p = state.portfolio.find(x => x.id === id);
+        if (!p) return;
+        editing.portfolio = id;
+        document.getElementById('portfolioName').value = p.name;
+        document.getElementById('portfolioLogo').value = p.logo;
+        document.getElementById('portfolioDesc').value = p.description || '';
+        document.getElementById('portfolioStatus').value = p.status;
+        document.getElementById('portfolioUrl').value = p.url || '';
+        document.getElementById('portfolioFormTitle').textContent = '✏️ Editing: ' + p.name;
+        document.getElementById('portfolioSubmitBtn').innerHTML = '<i class="fas fa-save"></i> Update Project';
+        document.getElementById('portfolioCancelBtn').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    document.getElementById('portfolioCancelBtn').addEventListener('click', resetPortfolioForm);
+
+    document.getElementById('portfolioSubmitBtn').addEventListener('click', () => {
+        const name = document.getElementById('portfolioName').value.trim();
+        if (!name) { alert('Project name is required.'); return; }
+        const payload = {
+            name,
+            logo: document.getElementById('portfolioLogo').value.trim(),
+            description: document.getElementById('portfolioDesc').value.trim(),
+            status: document.getElementById('portfolioStatus').value,
+            url: document.getElementById('portfolioUrl').value.trim()
+        };
+        if (editing.portfolio) {
+            const idx = state.portfolio.findIndex(x => x.id === editing.portfolio);
+            state.portfolio[idx] = { ...state.portfolio[idx], ...payload };
+            showToast('Project updated');
+        } else {
+            state.portfolio.push({ id: uid('p'), ...payload });
+            showToast('Project added');
+        }
+        resetPortfolioForm();
+        renderPortfolioList();
+        markUnsaved();
+    });
+
+    /* ==========================================================
+       TESTIMONIALS
+       ========================================================== */
+    function renderTestimonialsList() {
+        const list = document.getElementById('testimonialsList');
+        if (!state.testimonials.length) { list.innerHTML = '<p class="admin-empty">No testimonials yet.</p>'; return; }
+        list.innerHTML = state.testimonials.map(t => `
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <div class="text"><h4>${t.name}</h4><p>${t.company || ''}</p></div>
+                </div>
+                <div class="admin-item-actions">
+                    <button class="ia-edit" onclick="editTestimonial('${t.id}')"><i class="fas fa-edit"></i> Edit</button>
+                    <button class="ia-delete" onclick="deleteItem('testimonials', '${t.id}')"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function resetTestimonialForm() {
+        editing.testimonials = null;
+        document.getElementById('testimonialFormTitle').textContent = '➕ Add Testimonial';
+        document.getElementById('testimonialSubmitBtn').innerHTML = '<i class="fas fa-plus"></i> Add Testimonial';
+        document.getElementById('testimonialCancelBtn').classList.remove('show');
+        ['testimonialName','testimonialCompany','testimonialText'].forEach(id => document.getElementById(id).value = '');
+    }
+
+    window.editTestimonial = function (id) {
+        const t = state.testimonials.find(x => x.id === id);
+        if (!t) return;
+        editing.testimonials = id;
+        document.getElementById('testimonialName').value = t.name;
+        document.getElementById('testimonialCompany').value = t.company || '';
+        document.getElementById('testimonialText').value = t.text;
+        document.getElementById('testimonialFormTitle').textContent = '✏️ Editing: ' + t.name;
+        document.getElementById('testimonialSubmitBtn').innerHTML = '<i class="fas fa-save"></i> Update Testimonial';
+        document.getElementById('testimonialCancelBtn').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    document.getElementById('testimonialCancelBtn').addEventListener('click', resetTestimonialForm);
+
+    document.getElementById('testimonialSubmitBtn').addEventListener('click', () => {
+        const name = document.getElementById('testimonialName').value.trim();
+        const text = document.getElementById('testimonialText').value.trim();
+        if (!name || !text) { alert('Name and Testimonial text are required.'); return; }
+        const payload = { name, text, company: document.getElementById('testimonialCompany').value.trim() };
+        if (editing.testimonials) {
+            const idx = state.testimonials.findIndex(x => x.id === editing.testimonials);
+            state.testimonials[idx] = { ...state.testimonials[idx], ...payload };
+            showToast('Testimonial updated');
+        } else {
+            state.testimonials.push({ id: uid('te'), ...payload });
+            showToast('Testimonial added');
+        }
+        resetTestimonialForm();
+        renderTestimonialsList();
+        markUnsaved();
+    });
+
+    /* ==========================================================
+       SHARED: DELETE
+       ========================================================== */
+    window.deleteItem = function (collection, id) {
+        if (!confirm('Delete this item? This cannot be undone (until you re-import an older content.json).')) return;
+        state[collection] = state[collection].filter(x => x.id !== id);
+        renderAll();
+        markUnsaved();
+        showToast('Deleted');
+    };
+
+    /* ==========================================================
+       TOOLBAR: DOWNLOAD / IMPORT / RESET
+       ========================================================== */
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'content.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('content.json downloaded — now upload it to your host');
+    });
+
+    document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importInput').click());
+    document.getElementById('importInput').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            try {
+                state = JSON.parse(ev.target.result);
+                renderAll();
+                markUnsaved();
+                showToast('Imported — remember to download when you\'re done editing');
+            } catch (err) {
+                alert('That file isn\'t valid JSON.');
+            }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', async () => {
+        if (!confirm('Discard all unsaved changes and reload content.json from the server?')) return;
+        localStorage.removeItem(DRAFT_KEY);
+        const res = await fetch('content.json', { cache: 'no-store' });
+        state = await res.json();
+        renderAll();
+        clearUnsaved();
+        showToast('Reloaded from server');
+    });
+
+    window.addEventListener('beforeunload', (e) => {
+        if (document.getElementById('unsavedPill').classList.contains('show')) {
+            e.preventDefault();
+            e.returnValue = '';
+        }
+    });
+    </script>
+</body>
+</html>

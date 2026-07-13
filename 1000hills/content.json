@@ -1,0 +1,197 @@
+{
+  "team": [
+    {
+      "id": "t1",
+      "name": "GAKIRE KELVIN",
+      "role": "Chief Executive Officer",
+      "bio": "Visionary leader driving 1000 Hills Group's mission to deliver exceptional Tech solutions across Rwanda.",
+      "image": "Gakire.jpeg",
+      "badge": "CEO",
+      "badgeIcon": "fas fa-crown",
+      "skills": ["Leadership", "Strategy", "Innovation"]
+    },
+    {
+      "id": "t2",
+      "name": "UWACU EDDY CARNETTY",
+      "role": "Web Developer & Cybersecurity Specialist",
+      "bio": "Building secure, high-performance digital solutions for Rwanda's top brands. Protecting your digital assets.",
+      "image": "cipherfox.jpeg",
+      "badge": "Security Expert",
+      "badgeIcon": "fas fa-shield-alt",
+      "skills": ["Web Dev", "Cybersecurity", "Full-Stack", "Firebase"]
+    }
+  ],
+  "services": [
+    {
+      "id": "s1",
+      "anchor": "web-design",
+      "icon": "fas fa-laptop-code",
+      "title": "Web Designing",
+      "shortDesc": "Stunning, user-centric websites that tell your story and drive conversions.",
+      "detailsParagraph": "We create fully responsive, SEO-optimized websites built with the latest technologies. Our designs focus on user experience, speed, and conversion optimization.",
+      "detailsList": [
+        "Responsive Design - Looks perfect on all devices",
+        "SEO Optimized - Rank higher on search engines",
+        "Fast Loading - Optimized for speed",
+        "CMS Integration - Easy content management",
+        "Custom UI/UX - Tailored to your brand"
+      ]
+    },
+    {
+      "id": "s2",
+      "anchor": "social-media",
+      "icon": "fas fa-share-alt",
+      "title": "Social Media Marketing",
+      "shortDesc": "Strategic campaigns that build communities, increase engagement, and grow your brand.",
+      "detailsParagraph": "We develop data-driven social media strategies that connect you with your target audience. From content creation to community management, we handle it all.",
+      "detailsList": [
+        "Content Strategy - Engaging posts that resonate",
+        "Community Management - 24/7 engagement",
+        "Analytics & Reporting - Track your ROI",
+        "Influencer Partnerships - Amplify your reach",
+        "Paid Campaigns - Targeted advertising"
+      ]
+    },
+    {
+      "id": "s3",
+      "anchor": "content-marketing",
+      "icon": "fas fa-pen-fancy",
+      "title": "Content Marketing",
+      "shortDesc": "Your story, told right. Data-driven content strategies that attract, engage, and convert.",
+      "detailsParagraph": "We create compelling content that tells your brand story and connects with your audience. From blog posts to video content, we help you stand out.",
+      "detailsList": [
+        "Blog Writing - SEO-optimized articles",
+        "Video Content - Engaging visual stories",
+        "Infographics - Shareable visual content",
+        "Content Strategy - Data-driven planning",
+        "Distribution - Reach the right audience"
+      ]
+    },
+    {
+      "id": "s4",
+      "anchor": "training",
+      "icon": "fas fa-graduation-cap",
+      "title": "Digital Marketing Training",
+      "shortDesc": "Hands-on training programs to equip your team with the latest digital marketing skills.",
+      "detailsParagraph": "We offer comprehensive training programs designed to upskill your team in all areas of digital marketing. From beginners to advanced, we've got you covered.",
+      "detailsList": [
+        "SEO Training - Master search engine optimization",
+        "Social Media Training - Build your brand online",
+        "Content Marketing - Create engaging content",
+        "Analytics Training - Data-driven decisions",
+        "PPC Training - Paid advertising mastery"
+      ]
+    },
+    {
+      "id": "s5",
+      "anchor": "link-building",
+      "icon": "fas fa-link",
+      "title": "Link Building Service",
+      "shortDesc": "White-hat link building strategies that boost your domain authority and search rankings.",
+      "detailsParagraph": "We use ethical, white-hat link building techniques to improve your website's authority and search engine rankings. Quality over quantity, always.",
+      "detailsList": [
+        "Guest Posting - Quality backlinks from authority sites",
+        "Directory Submissions - Boost your visibility",
+        "Broken Link Building - Find and fix broken links",
+        "Competitor Analysis - Stay ahead of the game",
+        "Monthly Reports - Track your progress"
+      ]
+    },
+    {
+      "id": "s6",
+      "anchor": "email-marketing",
+      "icon": "fas fa-envelope",
+      "title": "Email Marketing",
+      "shortDesc": "Personalized email campaigns that nurture leads and drive revenue.",
+      "detailsParagraph": "We create targeted email campaigns that engage your audience and drive conversions. From newsletters to automated sequences, we handle it all.",
+      "detailsList": [
+        "Campaign Design - Professional email templates",
+        "Automation - Set and forget sequences",
+        "Segmentation - Target the right people",
+        "Analytics - Track opens and clicks",
+        "A/B Testing - Optimize your campaigns"
+      ]
+    },
+    {
+      "id": "s7",
+      "anchor": "seo",
+      "icon": "fas fa-search",
+      "title": "SEO Optimization",
+      "shortDesc": "Get to the top of Google with our proven search engine strategies.",
+      "detailsParagraph": "Our SEO experts use white-hat techniques to improve your search rankings, drive organic traffic, and increase your online visibility.",
+      "detailsList": [
+        "On-Page SEO - Optimize your content",
+        "Off-Page SEO - Build authority",
+        "Technical SEO - Improve site performance",
+        "Keyword Research - Target the right audience",
+        "Monthly Reporting - Track your progress"
+      ]
+    },
+    {
+      "id": "s8",
+      "anchor": "mobile-apps",
+      "icon": "fas fa-mobile-alt",
+      "title": "Mobile App Development",
+      "shortDesc": "Native and cross-platform apps that deliver seamless user experiences.",
+      "detailsParagraph": "We build high-performance mobile applications for iOS, Android, and hybrid platforms. Our apps are designed for speed, usability, and engagement.",
+      "detailsList": [
+        "Native Apps - iOS & Android optimized",
+        "Cross-Platform - Reach more users",
+        "UI/UX Design - Intuitive interfaces",
+        "App Store Deployment - Launch successfully",
+        "Ongoing Support - Maintenance & updates"
+      ]
+    },
+    {
+      "id": "s9",
+      "anchor": "ai-automation",
+      "icon": "fas fa-robot",
+      "title": "AI Automation",
+      "shortDesc": "Leverage cutting-edge artificial intelligence to automate your workflows, build smart agents, and scale operations.",
+      "detailsParagraph": "We design and deploy custom AI solutions tailored to your business needs. From intelligent chatbots and automated customer support to advanced workflows, data extraction, and machine learning integrations, we help you operate faster and smarter.",
+      "detailsList": [
+        "Custom AI Chatbots - 24/7 intelligent customer engagement",
+        "Workflow Automation - Connect your tools and automate repetitive tasks",
+        "AI Agent Integration - Deploy autonomous agents for specialized workflows",
+        "Data & Content Generation - Leverage LLMs for automated generation",
+        "Machine Learning Models - Predictive analytics and custom cognitive services"
+      ]
+    }
+  ],
+  "clients": [
+    { "id": "c1", "name": "Lemigo", "logo": "Lemigo.png" },
+    { "id": "c2", "name": "Grazia", "logo": "Grazia.jpeg" },
+    { "id": "c3", "name": "Inzozi", "logo": "Inzozi.jpeg" },
+    { "id": "c4", "name": "Motel Nyanza", "logo": "Motel-Nyanza.jpeg" },
+    { "id": "c5", "name": "Nsbliss", "logo": "Nsbliss.jpeg" },
+    { "id": "c6", "name": "Retreat", "logo": "Retreat.jpeg" },
+    { "id": "c7", "name": "Rose", "logo": "Rose.png" },
+    { "id": "c8", "name": "Saphir", "logo": "Saphir.jpeg" }
+  ],
+  "portfolio": [
+    {
+      "id": "p1",
+      "name": "Luxury Properties Rwanda",
+      "description": "Premium real estate platform with Firebase backend, property listings, and admin dashboard.",
+      "logo": "Luxury.jpeg",
+      "status": "live",
+      "url": "https://luxuryproperties.vercel.app"
+    },
+    {
+      "id": "p2",
+      "name": "Awakart",
+      "description": "Innovative technology and e-commerce solutions driving business growth.",
+      "logo": "awakart.jpeg",
+      "status": "live",
+      "url": "https://awakart.com/"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "te1",
+      "name": "Sample Client Name",
+      "company": "CEO, Company Name",
+      "text": "Replace this with a real testimonial from a happy client — edit or delete it from the admin panel's Testimonials tab."
+    }
+  ]
+}

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | 1000 Hills Group</title>
+    <meta name="description" content="Get in touch with 1000 Hills Group in Kigali, Rwanda. Call, WhatsApp, or send us a message about your web, marketing, or tech project." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://1000hillsgroup.africa/contact.html" />
+    <meta property="og:title" content="Contact Us | 1000 Hills Group" />
+    <meta property="og:description" content="Reach 1000 Hills Group — Kigali's tech and digital agency." />
+    <meta property="og:image" content="https://1000hillsgroup.africa/1000hills-logo.png" />
+    <link rel="icon" type="image/png" href="1000hills-logo.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+        .typing-text {
+            display: inline;
+        }
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2rem;
+            background: var(--gold);
+            margin-left: 2px;
+            animation: blink 0.8s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .page-hero-content p {
+            min-height: 40px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 20px 0 60px;
+        }
+        .contact-info-card {
+            background: var(--dark-card);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .contact-info-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .contact-info-card p {
+            color: var(--grey);
+            margin-bottom: 24px;
+        }
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+        .contact-detail .icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #B8B8B8;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .contact-detail .text h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .contact-detail .text p {
+            font-size: 0.85rem;
+            color: var(--grey);
+            margin: 0;
+        }
+        .contact-detail .text p a {
+            color: #94A3B8;
+        }
+        .contact-detail .text p a:hover {
+            color: var(--gold);
+        }
+        .contact-form {
+            background: var(--dark-card);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .contact-form h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .contact-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .contact-form .form-group {
+            margin-bottom: 16px;
+        }
+        .contact-form .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #B8B8B8;
+            margin-bottom: 4px;
+        }
+        .contact-form .form-group input,
+        .contact-form .form-group textarea,
+        .contact-form .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .contact-form .form-group input:focus,
+        .contact-form .form-group textarea:focus,
+        .contact-form .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        .contact-form .form-group select option {
+            background: #1A1A1A;
+            color: #FFFFFF;
+        }
+        .contact-form .form-group select option:hover {
+            background: var(--gold);
+            color: #000000;
+        }
+        .contact-form .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .contact-form .btn-submit {
+            background: var(--gold);
+            color: #000;
+            padding: 12px 32px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        .contact-form .btn-submit:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .map-container {
+            margin-top: 20px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            filter: grayscale(0.8) invert(0.9);
+        }
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-form .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="preloader-logo">
+            <img src="1000hills-logo.png" alt="1000 Hills Group" />
+        </div>
+        <div class="preloader-bar"><div class="fill"></div></div>
+    </div>
+
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="1000hills-logo.png" alt="1000 Hills Group logo" />
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="companies.html">Our Companies</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-content" data-aos="fade-up">
+                <span class="tag"><i class="fas fa-envelope"></i> Get in Touch</span>
+                <h1>Contact <span class="highlight">Us</span></h1>
+                <p>
+                    <span class="typing-text" id="contactTyping"></span><span class="typing-cursor"></span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info-card" data-aos="fade-right">
+                    <h3>Let's Talk <span class="highlight">Business</span></h3>
+                    <p>Reach out to us and we'll get back to you within 24 hours.</p>
+
+                    <div class="contact-detail">
+                        <div class="icon"><i class="fas fa-location-dot"></i></div>
+                        <div class="text">
+                            <h4>Visit Our Office</h4>
+                            <p>KG 11 Ave, GILUGALI House, Kigali, Rwanda</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <div class="icon"><i class="fas fa-phone"></i></div>
+                        <div class="text">
+                            <h4>Call Us</h4>
+                            <p><a href="tel:+250788695396">+250 788 695 396</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <div class="icon"><i class="fas fa-envelope"></i></div>
+                        <div class="text">
+                            <h4>Email Us</h4>
+                            <p><a href="mailto:info@1000hillsgroup.africa">info@1000hillsgroup.africa</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="text">
+                            <h4>WhatsApp</h4>
+                            <p><a href="https://wa.me/250788695396" target="_blank" rel="noopener noreferrer">+250 788 695 396</a></p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="https://wa.me/250788695396" class="btn-whatsapp" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                        <a href="mailto:info@1000hillsgroup.africa" class="btn-outline">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form" data-aos="fade-left">
+                    <h3>Send a <span class="highlight">Message</span></h3>
+                    <p style="color: var(--grey); margin-bottom: 16px;">We'll respond within 24 hours.</p>
+
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Your Name *</label>
+                                <input type="text" id="contactName" name="name" placeholder="John Doe" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Your Email *</label>
+                                <input type="email" id="contactEmail" name="email" placeholder="john@example.com" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone">Phone Number</label>
+                            <input type="tel" id="contactPhone" name="phone" placeholder="+250 788 695 396" />
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSubject">Subject *</label>
+                            <select id="contactSubject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="web-development">Web Development</option>
+                                <option value="social-media">Social Media Marketing</option>
+                                <option value="digital-marketing">Digital Marketing</option>
+                                <option value="seo">SEO</option>
+                                <option value="mobile-app">Mobile App</option>
+                                <option value="ai-automation">AI Automation</option>
+                                <option value="training">Training</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Message *</label>
+                            <textarea id="contactMessage" name="message" placeholder="Tell us about your project..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="map-container" data-aos="fade-up">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.478983059545!2d30.07388707395631!3d-1.944272936504522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca6149544a42b%3A0x3d7aab083aeacf20!2sKigali%2C%20Rwanda!5e0!3m2!1sen!2s!4v1700000000000"
+                    title="1000 Hills Group office location map"
+                    allowfullscreen
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <img src="1000hills-logo.png" alt="1000 Hills Group logo" />
+                    </a>
+                    <p>Rising to your tech challenges since 2020.</p>
+                    <div class="socials">
+                        <a href="https://www.instagram.com/kelvin_gakire?igsh=NWZuNHBveGsxMG56&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/250788695396" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="companies.html">Our Companies</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5>Our Services</h5>
+                    <ul>
+                        <li><a href="services.html#web-design">Web Design</a></li>
+                        <li><a href="services.html#social-media">Social Media</a></li>
+                        <li><a href="services.html#seo">SEO</a></li>
+                        <li><a href="services.html#mobile-apps">Mobile Apps</a></li>
+                        <li><a href="services.html#ai-automation">AI Automation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h5>Contact Us</h5>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+250788695396">+250 788 695 396</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:info@1000hillsgroup.africa">info@1000hillsgroup.africa</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> KG 11 Ave, Kigali</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 1000 Hills Group. All rights reserved.</p>
+                <p>Designed with <i class="fas fa-heart" style="color: #C9A96E;"></i> by 1000 Hills Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ======================================== //
+        // TYPING EFFECT                           //
+        // ======================================== //
+        document.addEventListener('DOMContentLoaded', function() {
+            const text = 'Have a question or project in mind? We\'d love to hear from you.';
+            const typingElement = document.getElementById('contactTyping');
+            let charIndex = 0;
+            
+            function typeContactText() {
+                if (charIndex < text.length) {
+                    typingElement.textContent += text.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeContactText, 30);
+                }
+            }
+            
+            setTimeout(typeContactText, 500);
+        });
+
+        // ======================================== //
+        // CONTACT FORM SUBMIT                     //
+        // ======================================== //
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const phone = document.getElementById('contactPhone').value;
+            const subject = document.getElementById('contactSubject').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            const whatsappUrl = `https://wa.me/250788695396?text=Hello%201000%20Hills%20Group!%0A%0AName:%20${encodeURIComponent(name)}%0AEmail:%20${encodeURIComponent(email)}%0APhone:%20${encodeURIComponent(phone)}%0ASubject:%20${encodeURIComponent(subject)}%0AMessage:%20${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            alert('✅ Message sent! We\'ll get back to you within 24 hours.');
+            this.reset();
+        });
+    </script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+            easing: 'ease-out-cubic'
+        });
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

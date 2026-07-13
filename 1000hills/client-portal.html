@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Portal - 1000 Hills Group</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    
+    <style>
+        .portal-container {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 60px;
+        }
+        
+        .portal-box {
+            max-width: 480px;
+            width: 100%;
+            background: var(--dark-card);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: var(--shadow);
+        }
+        
+        .portal-box .logo {
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        
+        .portal-box h2 {
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        
+        .portal-box p {
+            text-align: center;
+            color: var(--grey);
+            margin-bottom: 24px;
+        }
+        
+        .portal-box .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .portal-box .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--grey-light);
+            margin-bottom: 4px;
+        }
+        
+        .portal-box .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .portal-box .form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .portal-box .btn-submit {
+            width: 100%;
+            background: var(--gold);
+            color: var(--black);
+            padding: 12px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: var(--font);
+            font-size: 0.9rem;
+        }
+        
+        .portal-box .btn-submit:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        
+        .portal-box .portal-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            font-size: 0.8rem;
+        }
+        
+        .portal-box .portal-links a {
+            color: var(--grey);
+            transition: var(--transition);
+        }
+        
+        .portal-box .portal-links a:hover {
+            color: var(--gold);
+        }
+        
+        .portal-dashboard {
+            display: none;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .portal-dashboard.active {
+            display: block;
+        }
+        
+        .portal-dashboard h2 {
+            margin-bottom: 4px;
+        }
+        
+        .portal-dashboard .welcome {
+            color: var(--grey);
+            margin-bottom: 24px;
+        }
+        
+        .portal-dashboard .project-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+        
+        .portal-dashboard .project-card {
+            background: var(--dark-card);
+            border-radius: var(--radius);
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition);
+        }
+        
+        .portal-dashboard .project-card:hover {
+            border-color: rgba(201, 169, 110, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .portal-dashboard .project-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        
+        .portal-dashboard .project-card .status {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 50px;
+            margin-top: 4px;
+        }
+        
+        .portal-dashboard .project-card .status.active {
+            background: rgba(46, 125, 50, 0.15);
+            color: #4CAF50;
+        }
+        
+        .portal-dashboard .project-card .status.completed {
+            background: rgba(201, 169, 110, 0.15);
+            color: var(--gold);
+        }
+        
+        .portal-dashboard .project-card .status.pending {
+            background: rgba(255, 152, 0, 0.15);
+            color: #FF9800;
+        }
+        
+        .portal-dashboard .logout-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--grey);
+            padding: 6px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: var(--transition);
+            font-size: 0.8rem;
+        }
+        
+        .portal-dashboard .logout-btn:hover {
+            border-color: #ff4444;
+            color: #ff4444;
+        }
+        
+        .portal-dashboard .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="1000 Hills Group" />
+                <span>1000<span>Hills</span><small>Group</small></span>
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="client-portal.html" class="nav-cta"><i class="fas fa-user"></i> Portal</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== PORTAL ===== -->
+    <section class="portal-container">
+        <div class="container" style="max-width: 100%; padding: 0;">
+            
+            <!-- Login Form -->
+            <div class="portal-box" id="loginBox">
+                <div class="logo" style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+                    <img src="logo.png" alt="1000 Hills Group" style="height: 40px;" />
+                    <span style="font-weight: 800; font-size: 1.2rem;">1000<span style="color: var(--gold);">Hills</span></span>
+                </div>
+                <h2>Client <span class="highlight">Portal</span></h2>
+                <p>Login to access your projects and updates.</p>
+                
+                <form id="portalLoginForm">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="portalEmail" placeholder="client@example.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="portalPassword" placeholder="••••••••" required />
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+                
+                <div class="portal-links">
+                    <a href="#">Forgot Password?</a>
+                    <a href="contact.html">Contact Support</a>
+                </div>
+                <p style="margin-top: 16px; font-size: 0.7rem; color: var(--grey);">
+                    <i class="fas fa-lock"></i> Your data is secure with us.
+                </p>
+            </div>
+            
+            <!-- Dashboard -->
+            <div class="portal-dashboard" id="portalDashboard">
+                <div class="dashboard-header">
+                    <div>
+                        <h2>Welcome, <span class="highlight" id="clientName">Client</span>!</h2>
+                        <p class="welcome">Here's an overview of your projects with 1000 Hills Group.</p>
+                    </div>
+                    <button class="logout-btn" id="portalLogout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+                
+                <div class="project-cards" id="projectCards">
+                    <div class="project-card">
+                        <h4>Luxury Properties Rwanda</h4>
+                        <p style="color: var(--grey); font-size: 0.8rem;">Real Estate Platform</p>
+                        <span class="status active">Active</span>
+                        <p style="color: var(--grey); font-size: 0.7rem; margin-top: 8px;">Last updated: Jan 2026</p>
+                    </div>
+                    <div class="project-card">
+                        <h4>E-Commerce Platform</h4>
+                        <p style="color: var(--grey); font-size: 0.8rem;">Online Store</p>
+                        <span class="status completed">Completed</span>
+                        <p style="color: var(--grey); font-size: 0.7rem; margin-top: 8px;">Last updated: Dec 2025</p>
+                    </div>
+                    <div class="project-card">
+                        <h4>Business Dashboard</h4>
+                        <p style="color: var(--grey); font-size: 0.8rem;">Analytics Tool</p>
+                        <span class="status pending">In Progress</span>
+                        <p style="color: var(--grey); font-size: 0.7rem; margin-top: 8px;">Last updated: Feb 2026</p>
+                    </div>
+                    <div class="project-card">
+                        <h4>Mobile App - HealthTrack</h4>
+                        <p style="color: var(--grey); font-size: 0.8rem;">Health Monitoring</p>
+                        <span class="status pending">In Progress</span>
+                        <p style="color: var(--grey); font-size: 0.7rem; margin-top: 8px;">Last updated: Jan 2026</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <img src="logo.png" alt="1000 Hills Group" />
+                        <span>1000<span>Hills</span><small>Group</small></span>
+                    </a>
+                    <p>Rising to your Tech challenges since 2024.</p>
+                    <div class="socials">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/250788695396"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5>Our Services</h5>
+                    <ul>
+                        <li><a href="services.html#web-design">Web Design</a></li>
+                        <li><a href="services.html#cybersecurity">Cybersecurity</a></li>
+                        <li><a href="services.html#digital-marketing">Digital Marketing</a></li>
+                        <li><a href="services.html#seo">SEO</a></li>
+                        <li><a href="services.html#mobile-apps">Mobile Apps</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h5>Contact Us</h5>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +250 788 695 396</li>
+                        <li><i class="fas fa-envelope"></i> info@1000hillsgroup.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> KG 11 Ave, Kigali</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 1000 Hills Group. All rights reserved.</p>
+                <p>Designed with <i class="fas fa-heart" style="color: #C9A96E;"></i> by 1000 Hills Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="main.js"></script>
+    <script>
+        // Client Portal Logic
+        const loginBox = document.getElementById('loginBox');
+        const portalDashboard = document.getElementById('portalDashboard');
+        const clientName = document.getElementById('clientName');
+
+        // Check auth state
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                loginBox.style.display = 'none';
+                portalDashboard.classList.add('active');
+                clientName.textContent = user.displayName || 'Client';
+                loadClientProjects(user.uid);
+            } else {
+                loginBox.style.display = 'block';
+                portalDashboard.classList.remove('active');
+            }
+        });
+
+        // Login
+        document.getElementById('portalLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('portalEmail').value;
+            const password = document.getElementById('portalPassword').value;
+            
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+            } catch (error) {
+                alert('Login failed: ' + error.message);
+            }
+        });
+
+        // Logout
+        document.getElementById('portalLogout').addEventListener('click', async () => {
+            await auth.signOut();
+        });
+
+        // Load client projects
+        async function loadClientProjects(uid) {
+            try {
+                const snapshot = await db.collection('clients').doc(uid).collection('projects').get();
+                // Projects displayed via static cards for now
+            } catch (error) {
+                console.log('Using static projects');
+            }
+        }
+    </script>
+</body>
+</html>
